@@ -1,0 +1,136 @@
+package party; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ñ½º·ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import party.PartyDTO;
+import party.ApplyDTO;
+import party.Preview;
+import mybatis.SqlMapConfig;
+
+public class partyAction {
+	static partyAction model = new partyAction();
+
+	public static partyAction instance() {
+		return model;
+	}
+
+	private SqlSessionFactory factory = SqlMapConfig.getSqlSession();
+
+	
+
+	public void insertParty(PartyDTO PartyDTO) {
+		SqlSession sqlSession = factory.openSession();
+		sqlSession.insert("insertParty", PartyDTO);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	//ÁøÇàÁßÀÎ ÆÄÆ¼ Ä«Å×°í¸®º° ÆÄÆ¼Á¤º¸ ºÒ·¯¿À±â
+	public List<PartyDTO> selectlistParty(String cate) {
+		List<PartyDTO> list = null;
+		SqlSession sqlSession = factory.openSession();
+		list = sqlSession.selectList("selectlistParty",cate);
+		sqlSession.close();
+		if(list!=null) {
+		return list;
+		}
+		return null;
+	}
+	
+	public List<PartyDTO> selectParty(int pnum) {
+		List<PartyDTO> sic = null;
+		SqlSession sqlSession = factory.openSession();
+		sic = sqlSession.selectList("selectParty",pnum);
+		sqlSession.close();
+		return sic;
+	}
+	
+	public List<PartyDTO> selectlistPartyre(String cate) {
+		List<PartyDTO> list = null;
+		SqlSession sqlSession = factory.openSession();
+		list = sqlSession.selectList("selectlistPartyre",cate);
+		sqlSession.close();
+		if(list!=null) {
+		return list;
+		}
+		return null;
+	}
+	
+	public List<PartyDTO> selectPartyre(int pnum) {
+		List<PartyDTO> sic = null;
+		SqlSession sqlSession = factory.openSession();
+		sic = sqlSession.selectList("selectPartyre",pnum);
+		sqlSession.close();
+		return sic;
+	}
+	
+	
+	public void insertPreview(Preview preview) {
+		SqlSession sqlSession = factory.openSession();
+		sqlSession.insert("insertPreview", preview);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	public List<Preview> selectlistPreview(int pnum) {
+		List<Preview> sic = null;
+		SqlSession sqlSession = factory.openSession();
+		sic = sqlSession.selectList("selectlistPreview",pnum);
+		sqlSession.close();
+		if(sic.size()!=0) {
+			return sic;
+			}
+			return null;
+	}
+	
+	public void insertApply(ApplyDTO ApplyDTO) {
+		SqlSession sqlSession = factory.openSession();
+		sqlSession.insert("insertApply", ApplyDTO);
+		sqlSession.commit();
+		sqlSession.close();
+	}
+	
+	
+	public boolean selectApply(ApplyDTO adto) {
+		String psnum = null;
+		SqlSession sqlSession = factory.openSession();
+		psnum = sqlSession.selectOne("selectApply",adto);
+		sqlSession.close();
+		if(psnum !=null) {
+			return true;
+			}
+			return false;
+	}
+	
+	public int selectApplycount(int pnum) {
+		int Apply_count = 0;
+		SqlSession sqlSession = factory.openSession();
+		Apply_count = sqlSession.selectOne("selectApplycount",pnum);
+		sqlSession.close();
+		if(Apply_count != 0) {
+			return Apply_count;
+			}
+			return 0;
+	}
+	
+	public boolean Applyable(int pnum) {
+		int Applyable = 0;
+		SqlSession sqlSession = factory.openSession();
+		Applyable = sqlSession.selectOne("ApplyAble",pnum);
+		sqlSession.close();
+		if(Applyable != 0) {
+			return true;
+			}
+			return false;
+	}
+	
+	
+
+
+
+
+}
