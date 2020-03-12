@@ -188,7 +188,7 @@ listData.forEach(function(addr, index) {
                 position: coords
             });
             var infowindow = new daum.maps.InfoWindow({
-                content: '<div style="width:200px; height:text-align:center;padding:6px 0;">' + listStore[index] +':<a href="restaurantDetail.bo?rnum='+listRnum[index]+'">식당보러가기</a>' + '</div>',
+                content: '<div style="width:200px; height:text-align:center;padding:6px 0;"><a href="restaurantDetail.bo?rnum='+listRnum[index]+'">' + listStore[index] +':식당보러가기</a>' + '</div>',
                 disableAutoPan: true
                 
             });
